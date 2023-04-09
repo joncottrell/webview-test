@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="UTF-8">
+	<title>Cookie Example</title>
+</head>
+
+<body>
+	<h1>Cookie Example</h1>
+	<p id="cookie-value"></p>
+	<p id="error-message"></p>
+
+	<script>
+		const COOKIE_NAME = "canary";
+		const REFRESH_INTERVAL = 5000;
+
+		const showCookieValue = () => {
+			// Read the value of the "canary" cookie
+			const canaryCookie = document.cookie
+				.split("; ")
+				.find(row => row.startsWith(`${COOKIE_NAME}=`));
+
+			// If the cookie exists, print its value
+			if (canaryCookie) {
+				const cookieValue = canaryCookie.split("=")[1];
+				document.getElementById("cookie-value").textContent = cookieValue;
+				document.getElementById("error-message").textContent = "";
+			} else {
+				document.getElementById("cookie-value").textContent = "";
+				document.getElementById("error-message").textContent = `Error: Cookie "${COOKIE_NAME}" not found.`;
+			}
+		};
+
+		// Show the initial cookie value
+		showCookieValue();
+
+		// Refresh the cookie value periodically
+		setInterval(showCookieValue, REFRESH_INTERVAL);
+	</script>
+</body>
+
+</html>
